@@ -20,7 +20,7 @@ function logRequests(request, response, next) {
     console.timeEnd(log);
 }
 
-mongoDB.save();
+mongoDB.saveVagas();
 
 app.use(logRequests)
 
