@@ -24,7 +24,7 @@ function validateUId(request, response, next){
     const { id} = request.params;
   
     if(!isUuid(id)){
-      return response.status(400).json({ "error": "Invalid Repositorie ID" });
+      return response.status(400).json({ "error": "Invalid ID" });
     }
   
     return next();
@@ -42,10 +42,22 @@ app.get("/vagas", (request, response) => {
 app.post("/vagas", (request, response) => {
     const { titulo, descricao, data_limite, numero_vagas } = request.body;
     const vaga = { id: uuid(), titulo: titulo, descricao: descricao,data_limite: data_limite, numero_vagas: numero_vagas, candidatos : []};
-
+    console.log(vaga);
     mongoDB.saveVagas(vaga);
 
     return response.json(vaga);
+});
+
+//Adicionar o candidato a uma ou mais vagas
+app.post("/vagas/addcandidato/:idcand",validateUId, (request, response) => {
+    const { idcand } = request.params;
+    return response.json();
+});
+
+//Remover o candidato a vaga
+app.post("/vagas/:idvaga/removecandidato/:idcand",validateUId, (request, response) => {
+    const { idvaga, idcand } = request.params;
+    return response.status(204).send();
 });
 
 app.put("/vagas/:id",validateUId, (request, response) => {
@@ -59,10 +71,14 @@ app.delete("/vagas/:id",validateUId, (request, response) => {
     return response.status(204).send();
 })
 
-//Canditados
+//Candidados
 
-app.post("/candidatos", (request, response) => {
+app.post("/candidatos", (request, response) => {    
     const { cpf, nome, email, senha } = request.body;
+    const candidato = {id : uuid, cpf: cpf, nome: nome, email:email, senha:senha}
+
+    mongoDB.saveCandidatos(candidato);
+
     return response.json();
 });
 
@@ -81,8 +97,6 @@ app.delete("/candidatos/:id",validateUId, (request, response) => {
     const { id } = request.params;
     return response.status(204).send();
 })
-
-
 
 
 module.exports = app;
