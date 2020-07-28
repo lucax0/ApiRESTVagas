@@ -41,11 +41,11 @@ app.get("/vagas", (request, response) => {
 
 app.post("/vagas", (request, response) => {
     const { titulo, descricao, data_limite, numero_vagas } = request.body;
-    const vaga = { id: uuid(), titulo: titulo, descricao: descricao,data_limite: data_limite, numero_vagas: numero_vagas, candidatos : []};
-    console.log(vaga);
-    mongoDB.saveVagas(vaga);
+    const data = { id: uuid(), titulo: titulo, descricao: descricao,data_limite: data_limite, numero_vagas: numero_vagas, candidatos : []};
 
-    return response.json(vaga);
+    mongoDB.saveVagas(data);
+
+    return response.json(data);
 });
 
 //Adicionar o candidato a uma ou mais vagas
@@ -75,11 +75,11 @@ app.delete("/vagas/:id",validateUId, (request, response) => {
 
 app.post("/candidatos", (request, response) => {    
     const { cpf, nome, email, senha } = request.body;
-    const candidato = {id : uuid, cpf: cpf, nome: nome, email:email, senha:senha}
+    const data = {id : uuid(), cpf: cpf, nome: nome, email:email, senha:senha}
 
-    mongoDB.saveCandidatos(candidato);
+    mongoDB.saveCandidatos(data);
 
-    return response.json();
+    return response.json(data);
 });
 
 app.get("/candidatos", (request, response) => {
