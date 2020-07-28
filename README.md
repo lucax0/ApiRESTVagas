@@ -40,11 +40,14 @@ Running the project:
     
 => DELETE VAGAS /vagas/+id.
 
-=> POST CANDIDATOS /candidatos
-   {"cpf" : "00000000000",
+=> POST CANDIDATOS /candidatos:
+
+   {
+    "cpf" : "00000000000",
     "nome" : "TESTE",
     "email" : "TESTE@gmail",
-    "senha" : "1589841652111" }
+    "senha" : "1589841652111" 
+    }
  
 => PUT/DELETE CANDIDATOS Follow the same pattern as Vagas.
     
