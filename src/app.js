@@ -88,13 +88,13 @@ app.put("/vagas/:id", validateUId, (request, response) => {
 
 app.delete("/vagas/:id", validateUId, (request, response) => {
     const { id } = request.params;
+
     try {
         mongoDB.deleteOneByType(id , 'v')
         return response.status(204).send();
     } catch (error) {
         return response.status(400).json({ "error": `Error co consolidar DB -> ${error}` });
-    }
-    
+    }    
 })
 
 //CANDIDATOS
@@ -108,8 +108,20 @@ app.post("/candidatos", (request, response) => {
     return response.status(201).json(data);
 });
 
-app.get("/candidatos", (request, response) => {
-    return response.json();
+app.get("/candidatos/:id", validateUId, async (request, response) => {
+    const { id } = request.params;
+    const result = await mongoDB.getOneByType(id, 'c');
+
+    return response.json(result);
+});
+
+app.get("/candidatos",async (request, response) => {
+    try {
+        const results = await mongoDB.getAllByType('c');
+        return response.json(results);
+    } catch (error) {
+        return response.status(400).json({ "error": `Error co consolidar DB -> ${error}` });
+    }
 });
 
 app.put("/candidatos/:id", validateUId, (request, response) => {
@@ -121,7 +133,12 @@ app.put("/candidatos/:id", validateUId, (request, response) => {
 
 app.delete("/candidatos/:id", validateUId, (request, response) => {
     const { id } = request.params;
-    return response.status(204).send();
+    try {
+        mongoDB.deleteOneByType(id , 'c')
+        return response.status(204).send();
+    } catch (error) {
+        return response.status(400).json({ "error": `Error co consolidar DB -> ${error}` });
+    }
 })
 
 

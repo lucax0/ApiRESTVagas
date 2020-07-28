@@ -29,7 +29,7 @@ module.exports = {
     },
 
     getAllByType: async function (type) {
-        //Dessa forma economiza linhas de codigo sendo que uma mesma function pesquisa para os 2
+        //Dessa forma economiza linhas de codigo sendo que uma mesma function pesquisa para os 2 models tanto vaga quanto candidato
         return type == "v" ? await VagaModel.find() : await CandidatoModel.find();
     },
     
