@@ -42,11 +42,10 @@ Running the project:
 
 => POST CANDIDATOS /candidatos:
 
-   {
-    "cpf" : "00000000000",
-    "nome" : "TESTE",
-    "email" : "TESTE@gmail",
-    "senha" : "1589841652111" 
+   {"cpf" : "43178501820",
+    "nome" : "teste",
+    "email" : "teste@gmail",
+    "senha" : "1589841652111",   
     }
  
 => PUT/DELETE CANDIDATOS Follow the same pattern as Vagas.
